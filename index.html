@@ -72,19 +72,19 @@
         <div class="container">
             <ul class="span text-center my-5 nav justify-content-around">
                 <li class="frontEndItem">
-                    <h1 style="font-size:5rem">15</h1>
+                    <h1 style="font-size:5rem;margin: 0 1.5rem">15</h1>
                     <h3>projecs</h3>
                 </li>
                 <li classs="frontEndItem">
-                    <h1 style="font-size:5rem">15</h1>
+                    <h1 style="font-size:5rem;margin: 0 1.5rem">15</h1>
                     <h3>projecs</h3>
                 </li>
                 <li classs="frontEndItem">
-                    <h1 style="font-size:5rem">15</h1>
+                    <h1 style="font-size:5rem;margin: 0 1.5rem">15</h1>
                     <h3>projecs</h3>
                 </li>
                 <li classs="frontEndItem">
-                    <h1 style="font-size:5rem">15</h1>
+                    <h1 style="font-size:5rem;margin: 0 1.5rem">15</h1>
                     <h3>projecs</h3>
                 </li>
             </ul>
@@ -104,15 +104,15 @@
             <h1 class="text-light my-4">Have a question to <span>Shohqadam?</span></h1>
             <form action="index.html" method="POST" id="contact-form" class="row">
                 <div class="col-md-6 d-flex flex-column justify-content-between">
-                    <input name="name" class="form-control-lg p-2 mt-2 py-3" placeholder="name">
-                    <input name="phone" class="form-control-lg p-2 mt-2 py-3" placeholder="phone number">
-                    <input name="email" class="form-control-lg p-2 mt-2 py-3" placeholder="e-mail">
+                    <input name="name" id="name" class="form-control-lg p-2 mt-2 py-3" placeholder="name">
+                    <input name="phone" id="phone" class="form-control-lg p-2 mt-2 py-3" placeholder="phone number">
+                    <input name="email" id="email" class="form-control-lg p-2 mt-2 py-3" placeholder="e-mail">
                 </div>
                 <div class="col-md-6">
-                    <textarea name="message" placeholder="your message" class="form-control-lg p-2 mt-2"></textarea>
+                    <textarea name="message" id="msg" placeholder="your message" class="form-control-lg p-2 mt-2"></textarea>
                 </div>
                 <div class="socials d-flex justify-content-between py-3">
-                <button type="submit" class="btn btn-primary">SendMessage</button>
+                <button id="sendBtn" type="submit" class="btn btn-primary">SendMessage</button>
                 <ul class="nav">
                     <li><a class="px-3" href="http://github.com/Shohqadam"><i class="bi bi-github"></i></a></li>
                     <li><a class="px-3" href="http://www.linkedin.com/in/shohqadam-ergashev-451232203"><i class="bi bi-linkedin"></i></a></li>
@@ -127,7 +127,63 @@
         <p class="text-light">Custom Developed By <span>shohqadam_ergashev</span></p>
     </div>
     <script src="assets/scripts/jquery-2.2.4.js"></script>
-    <script src="assets/scripts/vendor.min.js"></script>
     <script src="assets/scripts/scripts.js"></script>
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+    (function() {
+    emailjs.init("user_rbZC5FROS8C3NfS8D52mR");
+    })();
+    </script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+    function validate(){
+        let name = document.querySelector('#name')
+        let email = document.querySelector('#email')
+        let msg = document.querySelector('#msg')
+        let btn = document.querySelector('#sendBtn')
+        
+        btn.addEventListener('click', (e)=>{
+            e.preventDefault()
+            if(name.value == '' || msg.value =='' || email.value == ''){
+                error()
+            }else{
+                    sendmail(name.value, email.value, msg.value)
+                    success()
+                
+            }
+
+        })
+    }
+    validate()
+    function sendmail(name, email, msg){
+        emailjs.send("service_dxevynm","template_i0xlwos",{
+        from_name: name,
+        to_name: email,
+        message: msg,
+        });
+    }
+    function success(){
+        swal({
+            title: "Message send",
+            text:'Message successfully sent',
+            icon:'success',
+            button:'Ok'
+        })
+    }
+    function error(){
+        swal({
+            title: "Message did not send",
+            text:'Something went wrond. Plese fill all fields',
+            icon:'error',
+            button:'Ok'
+        })
+    }
+
+</script>
 		
     </body></html>
